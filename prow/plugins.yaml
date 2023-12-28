@@ -7,7 +7,7 @@ data:
   plugins.yaml: |
     plugins:
       # GitHub org
-      kurator-dev:
+      kmesh-net:
         plugins:
         - approve
         - assign
@@ -38,12 +38,12 @@ data:
     approve:
     - repos:
       # GitHub Org name, means all repos under this organization using the same configuration.
-      - kurator-dev
+      - kmesh-net
       # require_self_approval requires PR authors to explicitly approve their PRs.
       require_self_approval: true
 
     external_plugins:
-      kurator-dev:
+      kmesh-net:
       - name: cherrypicker
         events:
           - pull_request
