@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: deck
   labels:
     app: deck
@@ -83,7 +83,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: deck
 spec:
   selector:
@@ -95,13 +95,13 @@ spec:
 kind: ServiceAccount
 apiVersion: v1
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: "deck"
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: "deck"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -114,7 +114,7 @@ subjects:
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: "deck"
 rules:
   - apiGroups:
@@ -133,7 +133,7 @@ rules:
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: "deck"
 rules:
   - apiGroups:

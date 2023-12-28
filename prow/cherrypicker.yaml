@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: cherrypicker
   labels:
     app: cherrypicker
@@ -56,7 +56,7 @@ kind: Service
 metadata:
   labels:
     app: cherrypicker
-  namespace: paas-prow
+  namespace: kmesh
   name: cherrypicker
 spec:
   selector:

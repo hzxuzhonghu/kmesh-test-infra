@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: statusreconciler
-  namespace: paas-prow
+  namespace: kmesh
   labels:
     app: statusreconciler
 spec:
@@ -60,13 +60,13 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: "statusreconciler"
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: "statusreconciler"
 rules:
   - apiGroups:
@@ -79,7 +79,7 @@ rules:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: "statusreconciler"
 roleRef:
   apiGroup: rbac.authorization.k8s.io

@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: prow-controller-manager
   labels:
     app: prow-controller-manager
@@ -52,13 +52,13 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: prow-controller-manager
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: prow-controller-manager
 rules:
   - apiGroups:
@@ -106,7 +106,7 @@ rules:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: prow-controller-manager
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -119,14 +119,14 @@ subjects:
 # apiVersion: v1
 # kind: Secret
 # metadata:
-#   namespace: paas-prow
+#   namespace: kmesh
 #   name: s3-credentials
 # stringData:
 #   service-account.json: |
 #     {
 #       "region": "minio",
 #       "access_key": "<<CHANGE_ME_MINIO_ACCESS_KEY>>",
-#       "endpoint": "minio.paas-prow.svc.cluster.local",
+#       "endpoint": "minio.kmesh.svc.cluster.local",
 #       "insecure": true,
 #       "s3_force_path_style": true,
 #       "secret_key": "<<CHANGE_ME_MINIO_SECRET_KEY>>"

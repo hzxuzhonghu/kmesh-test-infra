@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: hook
   labels:
     app: hook
@@ -85,7 +85,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: hook
   annotations:
     kubernetes.io/elb.class: union
@@ -103,13 +103,13 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: "hook"
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: "hook"
 rules:
   - apiGroups:
@@ -133,7 +133,7 @@ rules:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: "hook"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -146,13 +146,13 @@ subjects:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: "tide"
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: paas-prow
+  namespace: kmesh
   name: "tide"
 rules:
   - apiGroups:
