@@ -1,0 +1,82 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kmesh
+  name: ghproxy
+  labels:
+    app: ghproxy
+spec:
+  selector:
+    matchLabels:
+      app: ghproxy
+  strategy:
+    type: Recreate
+  # GHProxy does not support HA
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ghproxy
+    spec:
+      containers:
+        - name: ghproxy
+          image: gcr.io/k8s-prow/ghproxy:v20230313-23dc2a84f3
+          args:
+            - --cache-dir=/cache
+            - --cache-sizeGB=10
+            - --push-gateway=pushgateway
+            - --serve-metrics=true
+          ports:
+            - name: main
+              containerPort: 8888
+            - name: metrics
+              containerPort: 9090
+          volumeMounts:
+            - name: cache
+              mountPath: /cache
+          resources:
+            limits:
+              cpu: "2"
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+      volumes:
+        - name: cache
+          persistentVolumeClaim:
+            claimName: cce-evs-ghproxy
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ghproxy
+  namespace: kmesh
+  name: ghproxy
+spec:
+  ports:
+    - name: main
+      port: 80
+      protocol: TCP
+      targetPort: 8888
+    - name: metrics
+      port: 9090
+  selector:
+    app: ghproxy
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: ghproxy
+  name: cce-evs-ghproxy
+  namespace: kmesh
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: csi-disk

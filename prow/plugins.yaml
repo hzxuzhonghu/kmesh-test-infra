@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: kmesh
+  name: plugins
+data:
+  plugins.yaml: |
+    plugins:
+      # GitHub org
+      kmesh-net:
+        plugins:
+        - approve
+        - assign
+        - blunderbuss
+        - cat
+        - dog
+        - help
+        - heart
+        - hold
+        - invalidcommitmsg
+        - label
+        - lgtm
+        # Close, reopen, flag and/or unflag an issue or PR as frozen/stale/rotten
+        - lifecycle
+        - mergecommitblocker
+        - milestone
+        - retitle
+        - size
+        - trigger
+        - verify-owners
+        - welcome
+        - wip
+        - yuks
+      kmesh:
+        plugins:
+        - release-note
+    # approve specifies configuration for the approve plugin.
+    approve:
+    - repos:
+      # GitHub Org name, means all repos under this organization using the same configuration.
+      - kmesh-net
+      # require_self_approval requires PR authors to explicitly approve their PRs.
+      require_self_approval: true
+
+    external_plugins:
+      kmesh-net:
+      - name: cherrypicker
+        events:
+          - pull_request
+          - issue_comment
+    label:
+      additional_labels:
+        # These labels are used to make Tide merge with a non-default merge method
+        - tide/merge-method-merge
+        - tide/merge-method-rebase
+        - tide/merge-method-squash
