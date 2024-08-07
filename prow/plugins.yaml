@@ -42,6 +42,13 @@ data:
       # require_self_approval requires PR authors to explicitly approve their PRs.
       require_self_approval: true
 
+    triggers:
+    - repos:
+      # GitHub Org name, means all repos under this organization using the same configuration.
+      - kmesh-net
+      # enables workflows run by github to be triggered by prow.
+      trigger_github_workflows: true
+
     external_plugins:
       kmesh-net:
       - name: cherrypicker
